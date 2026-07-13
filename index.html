@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seneca Growth Plan — Khosi Siphugu</title>
+<style>
+  :root{
+    --ink:#0b1220; --ink-2:#111a2b; --ink-3:#18243a;
+    --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+    --fg:#eaf0f7; --fg-dim:#9fb0c6; --fg-mute:#6b7d97;
+    --emerald:#34d399; --emerald-deep:#0f9d68;
+    --gold:#f5c451; --sky:#5aa9ff; --rose:#fb7185; --violet:#b79cff;
+    --radius:16px; --shadow:0 24px 60px -20px rgba(0,0,0,.6);
+    --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces","Georgia",serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--font); color:var(--fg); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(1200px 700px at 85% -10%, rgba(52,211,153,.10), transparent 60%),
+      radial-gradient(900px 600px at 5% 110%, rgba(90,169,255,.08), transparent 55%),
+      var(--ink);
+    min-height:100vh; padding:clamp(18px,3.5vw,44px);
+  }
+  .wrap{max-width:1320px;margin:0 auto}
+
+  .pagenav{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap}
+  .pagenav button{background:var(--ink-2);border:1px solid var(--line-2);color:var(--fg-dim);
+    padding:9px 16px;border-radius:999px;cursor:pointer;font-family:var(--font);
+    font-size:13px;font-weight:600;letter-spacing:.02em;transition:.15s;display:flex;align-items:center;gap:8px}
+  .pagenav button:hover{border-color:var(--emerald);color:var(--fg)}
+  .pagenav button.active{background:var(--emerald-deep);border-color:var(--emerald);color:#fff}
+  .pagenav .num{font-family:var(--serif);font-size:15px;opacity:.8}
+
+  .page{display:none;animation:fade .3s ease}
+  .page.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .kicker{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .kicker::before{content:"";width:26px;height:1.5px;background:var(--emerald)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin-bottom:10px}
+  .lead{font-size:clamp(15px,1.5vw,18px);color:var(--fg-dim);max-width:84ch;font-weight:300;margin-bottom:14px}
+  .intro{border-left:2px solid var(--emerald);padding:12px 0 12px 16px;margin:0 0 22px;max-width:86ch;font-size:14px;color:var(--fg-dim);font-weight:300;line-height:1.6}
+  .intro strong{color:var(--fg)}
+  .hintline{font-size:12.5px;color:var(--fg-mute);margin:6px 0 24px;display:flex;align-items:center;gap:7px}
+  .hintline .k{border:1px solid var(--line-2);border-radius:6px;padding:1px 7px;color:var(--fg-dim);font-size:11px}
+  .em{color:var(--emerald)} .go{color:var(--gold)} .sk{color:var(--sky)} .rs{color:var(--rose)} .vi{color:var(--violet)}
+  strong{color:var(--fg);font-weight:600}
+
+  .sectionhead{font-family:var(--serif);font-size:20px;font-weight:600;margin:26px 0 12px}
+  .sectionhead .n{color:var(--fg-mute);font-size:15px;margin-right:8px}
+
+  .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .icard{background:linear-gradient(180deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;position:relative;cursor:pointer;transition:transform .14s,border-color .14s,box-shadow .14s;box-shadow:var(--shadow)}
+  .icard:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 30px 70px -22px rgba(0,0,0,.7)}
+  .icard:hover .more-dot{opacity:1;color:var(--emerald)}
+  .icard h3{font-size:15.5px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:9px;padding-right:18px}
+  .icard .rowmap{font-size:13px;color:var(--fg-dim);font-weight:300;line-height:1.55}
+  .icard .rowmap b{color:var(--fg)}
+  .icard .note{font-size:12px;color:var(--emerald);font-weight:400;margin-top:8px;line-height:1.5}
+  .icard .note b{color:var(--emerald);font-weight:600}
+  .more-dot{position:absolute;top:12px;right:14px;font-size:15px;color:var(--fg-mute);opacity:.5;transition:.14s;line-height:1}
+  .tagline{display:flex;gap:6px;margin-top:11px;flex-wrap:wrap}
+  .tg{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:999px}
+  .tg.ghl{color:var(--emerald);background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.3)}
+  .tg.ai{color:var(--violet);background:rgba(183,156,255,.08);border:1px solid rgba(183,156,255,.32)}
+  .tg.paid{color:var(--sky);background:rgba(90,169,255,.08);border:1px solid rgba(90,169,255,.3)}
+  .tg.org{color:var(--gold);background:rgba(245,196,81,.08);border:1px solid rgba(245,196,81,.3)}
+
+  .flow{display:flex;flex-direction:column;gap:12px}
+  .step{display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:stretch}
+  @media(max-width:820px){.step{grid-template-columns:1fr}}
+  .step .lbl{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:12px 14px;border-right:2px solid var(--line-2)}
+  @media(max-width:820px){.step .lbl{border-right:none;border-bottom:2px solid var(--line-2);flex-direction:row;align-items:center;gap:12px}}
+  .step .lbl .n{font-family:var(--serif);font-size:24px;color:var(--fg-mute);line-height:1}
+  .step .lbl .t{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-dim);font-weight:600}
+  .step .body{background:linear-gradient(180deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow);cursor:pointer;position:relative;transition:transform .14s,border-color .14s}
+  .step .body:hover{transform:translateY(-2px);border-color:var(--line-2)}
+  .step .body:hover .more-dot{opacity:1;color:var(--emerald)}
+  .step .body p{font-size:13px;color:var(--fg-dim);font-weight:300;line-height:1.55;padding-right:18px}
+  .conn{height:14px;display:flex;justify-content:center;align-items:center;color:var(--fg-mute)}
+
+  .grouplabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:24px 0 12px;display:flex;align-items:center;gap:12px}
+  .grouplabel::after{content:"";flex:1;height:1px;background:var(--line)}
+  .gl-now{color:var(--emerald)} .gl-next{color:var(--gold)} .gl-scale{color:var(--violet)}
+
+  .def{background:rgba(90,169,255,.05);border:1px solid rgba(90,169,255,.22);border-radius:12px;padding:13px 17px;margin:10px 0 6px;font-size:13.5px;color:var(--fg-dim);font-weight:300;line-height:1.6}
+  .def b{color:var(--sky);font-weight:600}
+  .def .term{color:var(--fg);font-weight:600}
+
+  .loop{margin-top:18px;border:1px dashed var(--line-2);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:14px;background:rgba(52,211,153,.04)}
+  .loop .ic{font-size:20px}
+  .loop p{font-size:13px;color:var(--fg-dim);font-weight:300;line-height:1.55}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:8px 0}
+  .stat{background:linear-gradient(180deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+  .stat .big{font-family:var(--serif);font-size:29px;font-weight:600;color:var(--emerald);line-height:1;margin-bottom:7px}
+  .stat.v .big{color:var(--violet)} .stat.g .big{color:var(--gold)} .stat.s .big{color:var(--sky)}
+  .stat .cap{font-size:12.5px;color:var(--fg-dim);font-weight:300;line-height:1.5}
+  .stat .cap b{color:var(--fg)}
+
+  .legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--fg-mute)}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .d-em{background:var(--emerald)} .d-vi{background:var(--violet)} .d-sk{background:var(--sky)} .d-go{background:var(--gold)}
+  .foot{margin-top:22px;font-size:12px;color:var(--fg-mute);line-height:1.65}
+  .foot b{color:var(--fg-dim)}
+
+  /* modals */
+  .modal-overlay{position:fixed;inset:0;background:rgba(4,8,16,.78);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:5vh 20px;z-index:100;overflow:auto}
+  .modal-overlay.open{display:flex;animation:fade .25s ease}
+  .modal{background:linear-gradient(180deg,#131e33,#0e1728);border:1px solid var(--line-2);border-radius:20px;max-width:660px;width:100%;padding:30px 32px;box-shadow:var(--shadow);position:relative}
+  .modal .kicker{margin-bottom:12px}
+  .modal h3{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:14px;letter-spacing:-.01em;line-height:1.12}
+  .modal p{font-size:14px;color:var(--fg-dim);font-weight:300;margin-bottom:12px;line-height:1.6}
+  .modal p strong{color:var(--fg)}
+  .modal .sub{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);font-weight:600;margin:18px 0 9px}
+  .modal .sub.b{color:var(--sky)} .modal .sub.g{color:var(--gold)} .modal .sub.v{color:var(--violet)}
+  .modal ul{margin:0 0 6px 2px;list-style:none}
+  .modal ul li{font-size:13.5px;color:var(--fg-dim);font-weight:300;padding-left:18px;position:relative;margin-bottom:7px;line-height:1.5}
+  .modal ul li::before{content:"→";position:absolute;left:0;color:var(--emerald)}
+  .modal .say{border-left:2px solid var(--gold);padding:7px 0 7px 14px;margin-top:14px;font-size:13.5px;color:var(--fg);font-style:italic;line-height:1.55}
+  .modal .fld{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;color:var(--emerald);border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.06);margin:3px 4px 0 0;font-family:ui-monospace,monospace}
+  .modal .x{position:absolute;top:16px;right:16px;background:var(--ink-3);border:1px solid var(--line-2);color:var(--fg);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:15px;transition:.15s}
+  .modal .x:hover{background:var(--rose);color:var(--ink);border-color:var(--rose)}
+
+  /* collapsible data model */
+  .datamodel{margin-top:24px;border:1px solid var(--line-2);border-radius:var(--radius);background:linear-gradient(180deg,rgba(90,169,255,.05),transparent);overflow:hidden}
+  .datamodel summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;align-items:center;gap:12px;font-weight:600;font-size:15.5px;color:var(--fg)}
+  .datamodel summary::-webkit-details-marker{display:none}
+  .datamodel summary .ic{font-size:18px}
+  .datamodel summary .tagm{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sky);border:1px solid rgba(90,169,255,.3);border-radius:999px;padding:2px 9px}
+  .datamodel summary .chev{margin-left:auto;transition:transform .2s;color:var(--sky);font-size:13px}
+  .datamodel[open] summary .chev{transform:rotate(180deg)}
+  .datamodel summary:hover{color:var(--sky)}
+  .dm-body{padding:4px 20px 24px}
+  .icard.flat{cursor:default}
+  .icard.flat:hover{transform:none;border-color:var(--line);box-shadow:var(--shadow)}
+  .icard.flat h3{padding-right:0}
+  .chanlist{list-style:none;margin-top:4px}
+  .chanlist li{font-size:12.5px;color:var(--fg-dim);font-weight:300;line-height:1.5;padding:8px 0;border-top:1px solid var(--line)}
+  .chanlist li:first-child{border-top:none}
+  .chanlist li b{color:var(--fg);font-weight:600}
+  .chanlist .how{color:var(--sky)}
+  .chanlist .met{color:var(--emerald)}
+  .dmflow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 4px}
+  .dmnode{background:var(--ink-2);border:1px solid var(--line-2);border-radius:10px;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--fg-dim)}
+  .dmnode.sor{border-color:rgba(90,169,255,.4);color:var(--sky)}
+  .dmnode.rec{border-color:rgba(52,211,153,.5);color:var(--emerald)}
+  .dmnode.mea{border-color:rgba(245,196,81,.4);color:var(--gold)}
+  .dmarr{color:var(--fg-mute);font-size:13px}
+  /* lane funnel inside the data model */
+  .dm-flow2{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .dm-row{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:stretch}
+  .dm-lane{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:10px 12px;border-right:2px solid var(--line-2)}
+  .dm-lane .n{font-family:var(--serif);font-size:22px;color:var(--fg-mute);line-height:1}
+  .dm-lane .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-dim);font-weight:600}
+  .dm-cards{display:flex;gap:10px;flex-wrap:wrap}
+  .dm-card{background:linear-gradient(180deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:12px;padding:11px 14px;flex:1 1 180px;min-width:168px;position:relative;cursor:pointer;transition:transform .14s,border-color .14s,box-shadow .14s;box-shadow:var(--shadow)}
+  .dm-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 30px 70px -22px rgba(0,0,0,.7)}
+  .dm-card:hover .more-dot{opacity:1;color:var(--sky)}
+  .dm-card h4{font-size:13.5px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:7px;padding-right:16px}
+  .dm-card p{font-size:11.5px;color:var(--fg-dim);font-weight:300;line-height:1.42}
+  .dm-card.wide{flex-basis:100%}
+  .dm-card .bdg{position:absolute;top:11px;right:28px;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--fg-mute)}
+  .dm-conn{height:14px;display:flex;justify-content:center;align-items:center;color:var(--fg-mute)}
+  .dm-conn svg{opacity:.5}
+  @media(max-width:820px){.dm-row{grid-template-columns:1fr}.dm-lane{border-right:none;border-bottom:2px solid var(--line-2);flex-direction:row;align-items:center;gap:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="pagenav">
+    <button data-page="p1" class="active"><span class="num">01</span> The opportunity</button>
+    <button data-page="p2"><span class="num">02</span> Partnerships engine</button>
+    <button data-page="p3"><span class="num">03</span> Demand engine</button>
+    <button data-page="p4"><span class="num">04</span> Built to measure</button>
+    <button data-page="p5"><span class="num">05</span> What I bring</button>
+  </nav>
+
+  <!-- ===== P1 — THE OPPORTUNITY ===== -->
+  <section class="page active" id="p1">
+    <div class="kicker">Seneca Growth Plan · Khosi Siphugu</div>
+    <h1>Turning elite demand into <span class="em">qualified, context-rich pipeline</span></h1>
+    <div class="intro">
+      A short view of how I'd approach growth at Seneca. Two ground rules I've held throughout: <strong>everything runs on the stack you already use</strong> (GoHighLevel, GA4, GTM — no rip-and-replace), and <strong>every AI element only drafts, ranks and proposes — a person always approves or declines before anything customer-facing or money-moving happens</strong>. Where I describe a "gap," I mean it as a hypothesis I'd validate in week one, not an assumption about what you already run internally.
+    </div>
+    <p class="lead">
+      Seneca's demand <em>capture</em> is genuinely elite — programmatic SEO across 50 states, 40+ property types, comparison content, a $171k average-deduction offer. So the biggest, fastest wins aren't at the top of the funnel. They're in the <span class="em">middle</span>: qualifying and enriching the leads you already get, handing advisors context instead of a name, and turning partner relationships into a measured, compounding channel.
+    </p>
+
+    <div class="sectionhead"><span class="n">›</span>The value chain — and where I'd start</div>
+    <p class="hintline"><span class="k">click</span> any stage or card for the detailed explanation</p>
+    <div class="flow">
+      <div class="step"><div class="lbl"><span class="n">1</span><span class="t">Traffic</span></div><div class="body" data-modal="op-traffic"><span class="more-dot">＋</span><p>Clicks from SEO, paid, partners &amp; social. <span class="em">Already strong.</span></p></div></div>
+      <div class="conn">↓</div>
+      <div class="step"><div class="lbl"><span class="n">2</span><span class="t">Lead</span></div><div class="body" data-modal="op-lead"><span class="more-dot">＋</span><p>Contact captured — the calculator is a perfect lead magnet. Segment-matched landing pages are a cheap lift here.</p></div></div>
+      <div class="conn">↓</div>
+      <div class="step"><div class="lbl"><span class="n">3</span><span class="t">Qualified — the wedge</span></div><div class="body" data-modal="op-qualified"><span class="more-dot">＋</span><p><b>Enrich + score every lead</b> on property type, basis, entity &amp; readiness <em>before</em> anyone touches it. This is where I'd begin — it makes every channel above it worth more, with no new ad spend.</p></div></div>
+      <div class="conn">↓</div>
+      <div class="step"><div class="lbl"><span class="n">4</span><span class="t">Opportunity</span></div><div class="body" data-modal="op-opportunity"><span class="more-dot">＋</span><p>Advisors get a <b>context card</b> — property, est. first-year deduction, entity, readiness + the <em>why</em> — not a cold name. Warmer calls, higher close rate.</p></div></div>
+      <div class="conn">↓</div>
+      <div class="step"><div class="lbl"><span class="n">5</span><span class="t">Client</span></div><div class="body" data-modal="op-client"><span class="more-dot">＋</span><p>Follow-up + nurture timed to the <b>tax calendar</b> — bonus-depreciation deadlines, year-end, new acquisitions. A "not now" in June is often a "yes" in November.</p></div></div>
+    </div>
+    <div class="def" style="margin-top:16px"><b>The core idea:</b> the middle is the <span class="term">multiplier</span> — a <span class="term">2× improvement at stages 3–4</span> (qualify well, hand off well) makes every channel above it worth more, at the same spend. So I'd stand up that layer early, then let the growth engines compound on top of it.</div>
+    <p class="lead" style="font-size:14px;margin-top:14px">Two engines then carry the growth — a <span class="go">partnerships engine</span> and a <span class="vi">demand engine</span> — and both pay off more once that middle layer is in place. Everything feeds the same instrumented funnel.</p>
+  </section>
+
+  <!-- ===== P2 — PARTNERSHIPS ENGINE ===== -->
+  <section class="page" id="p2">
+    <div class="kicker" style="color:var(--gold)"><span style="background:var(--gold);width:26px;height:1.5px;display:inline-block"></span>The partnerships marketing engine</div>
+    <h1>Making the partner channel a <span class="go">measured, compounding</span> growth engine</h1>
+    <p class="lead">
+      Partnerships with CPAs, wealth managers and real-estate professionals are the highest-quality, lowest-CAC channel Seneca has — a good CPA sends investors every tax season for years, and referrals arrive pre-sold. The relationships are the hard part. My job is the <strong>marketing engine underneath them</strong>: the acquisition, the assets partners actually use, and the measurement that proves which partners drive revenue.
+    </p>
+    <p class="hintline"><span class="k">click</span> any card for how it's built and why it matters</p>
+
+    <div class="grouplabel gl-now">Acquire &amp; enable partners</div>
+    <div class="grid2">
+      <div class="icard" data-modal="pt-acquire"><span class="more-dot">＋</span>
+        <h3>🎯 Targeted partner acquisition</h3>
+        <div class="rowmap"><b>Paid, precisely aimed:</b> LinkedIn / Meta / Google campaigns targeting CPAs, tax advisors, wealth managers, brokers &amp; property managers — not consumers.</div>
+        <div class="note"><b>→</b> Each audience lands on a <b>custom partner landing page</b>, not the consumer site.</div>
+        <div class="tagline"><span class="tg paid">paid</span><span class="tg ghl">GHL funnels</span></div>
+      </div>
+      <div class="icard" data-modal="pt-ai"><span class="more-dot">＋</span>
+        <h3>🧠 AI partner sourcing &amp; scoring</h3>
+        <div class="rowmap"><b>Point the enrichment engine at partners, not just leads:</b> AI sources lookalikes of your best-referring CPAs, scores which are most likely to refer, and flags dormant partners to re-activate.</div>
+        <div class="note"><b>→</b> The same enrich → score → prioritise system that qualifies leads, aimed at the partner ecosystem.</div>
+        <div class="tagline"><span class="tg ai">AI: sourcing + scoring</span><span class="tg ghl">GHL</span></div>
+      </div>
+      <div class="icard" data-modal="pt-lp"><span class="more-dot">＋</span>
+        <h3>🖥️ Custom partner landing pages</h3>
+        <div class="rowmap"><b>Message-matched to advisors:</b> "Offer cost seg to your clients — you keep the relationship, we handle the engineering + audit defense." Different page per partner type.</div>
+        <div class="note"><b>→</b> Tracked to partner sign-ups.</div>
+        <div class="tagline"><span class="tg ghl">GHL funnels</span></div>
+      </div>
+      <div class="icard" data-modal="pt-kit"><span class="more-dot">＋</span>
+        <h3>🧰 Partner enablement kit</h3>
+        <div class="rowmap"><b>Assets that make partners sell effortlessly:</b> co-branded savings-calculator links, one-pagers, client-ready explainers, email templates, short videos.</div>
+        <div class="note"><b>→</b> The calculator becomes the partner's conversation-opener with their client.</div>
+        <div class="tagline"><span class="tg org">co-branded assets</span><span class="tg ai">AI: asset drafts</span></div>
+      </div>
+      <div class="icard" data-modal="pt-portal"><span class="more-dot">＋</span>
+        <h3>🔐 Partner portal &amp; onboarding</h3>
+        <div class="rowmap"><b>Self-serve visibility:</b> a GHL portal where partners see their referrals' status, study progress, and earnings; a guided onboarding track.</div>
+        <div class="note"><b>→</b> Less hand-holding, more trust, faster ramp.</div>
+        <div class="tagline"><span class="tg ghl">GHL portal + Affiliate Manager</span></div>
+      </div>
+    </div>
+
+    <div class="grouplabel gl-next">Measure every referral</div>
+    <div class="grid2">
+      <div class="icard" data-modal="pt-attr"><span class="more-dot">＋</span>
+        <h3>📊 Referral attribution, first-touch → closed-won</h3>
+        <div class="rowmap"><b>Prove which partner drives revenue</b> — not just who made an intro. Every referral enriched, scored, and tracked to a closed study, by partner.</div>
+        <div class="note"><b>→</b> You can reward and double down on your best partners with evidence.</div>
+        <div class="tagline"><span class="tg ghl">GHL + GA4 via GTM</span></div>
+      </div>
+      <div class="icard" data-modal="pt-timing"><span class="more-dot">＋</span>
+        <h3>📅 Tax-calendar timing</h3>
+        <div class="rowmap"><b>Reach partners &amp; their clients when it matters:</b> around acquisitions, year-end planning, and filing deadlines — the moments cost seg actually sells.</div>
+        <div class="note"><b>→</b> Recovers "not now" referrals instead of losing them.</div>
+        <div class="tagline"><span class="tg ghl">GHL workflows + date fields</span><span class="tg ai">AI: timing + copy</span></div>
+      </div>
+    </div>
+
+    <div class="grouplabel gl-scale">Long-run: keep partners &amp; their clients engaged (organic)</div>
+    <div class="grid2">
+      <div class="icard" data-modal="pt-email"><span class="more-dot">＋</span>
+        <h3>✉️ Automated partner email campaigns</h3>
+        <div class="rowmap"><b>Nurture the ecosystem:</b> seasonal playbooks ("year-end moves for STR owners"), partner wins, product updates, and re-engagement — segmented by partner type, mostly organic.</div>
+        <div class="note"><b>→</b> Keeps Seneca top-of-mind through every tax cycle.</div>
+        <div class="tagline"><span class="tg org">organic email</span><span class="tg ai">AI drafts · human approves</span></div>
+      </div>
+      <div class="icard" data-modal="pt-comktg"><span class="more-dot">＋</span>
+        <h3>🤝 Co-marketing &amp; engagement</h3>
+        <div class="rowmap"><b>Help partners look good to their clients:</b> co-branded webinars, client-education email + social engagement campaigns partners can run with our assets.</div>
+        <div class="note"><b>→</b> Two audiences reached at once; partners get value, we get pipeline.</div>
+        <div class="tagline"><span class="tg org">organic</span><span class="tg paid">paid boost</span><span class="tg ai">AI: content</span></div>
+      </div>
+    </div>
+
+    <div class="loop"><span class="ic">↺</span><p><strong>The compounding effect:</strong> better assets → partners refer more → attribution shows the best partners → we invest in them and recruit lookalikes. The channel gets cheaper and higher-quality every quarter.</p></div>
+  </section>
+
+  <!-- ===== P3 — DEMAND CREATION & OUTBOUND ===== -->
+  <section class="page" id="p3">
+    <div class="kicker" style="color:var(--violet)"><span style="background:var(--violet);width:26px;height:1.5px;display:inline-block"></span>The demand engine · capture, create &amp; amplify</div>
+    <h1>Every way we turn attention into <span class="vi">qualified leads</span> — paid + organic</h1>
+    <p class="lead">
+      Three jobs, one instrumented system. <strong>Capture</strong> harvests the demand that already exists (and protects Seneca's SEO moat); <strong>creation</strong> builds new demand by reaching investors before they search; <strong>amplification</strong> borrows the trust of clients and creators. Organic proves what resonates; paid scales the winners.
+    </p>
+    <div class="def"><span class="term">How paid + organic pair:</span> <b>organic</b> proves which hooks, formats and offers resonate and builds an owned audience; <b>paid</b> then scales the proven winners and retargets everyone who engaged. You never pay to scale a guess.</div>
+    <div class="def" style="border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.05)"><span class="term" style="color:var(--emerald)">Where I'd start:</span> protect the SEO moat and stand up lifecycle email — the fastest ROI — while the enrich/qualify layer (see "Built to measure") goes in underneath. Social, creators and amplification are the deliberate build-out that follows. The groups below are ordered <b>① start here → ② build out → ③ scale</b>.</div>
+    <p class="hintline"><span class="k">click</span> any card for how it's built and why it matters</p>
+
+    <div class="grouplabel gl-now">① Start here · Capture — protect &amp; compound</div>
+    <div class="grid2">
+      <div class="icard" data-modal="cc-seo"><span class="more-dot">＋</span>
+        <h3>🔎 Programmatic SEO — the moat</h3>
+        <div class="rowmap"><b>Protect first, then compound:</b> mine which pages drive <em>submits</em> (not just visits) and expand the winning templates into new long-tail terms.</div>
+        <div class="note"><b>→</b> Free, high-intent, compounding — the base everything else sits on.</div>
+        <div class="tagline"><span class="tg org">organic</span></div>
+      </div>
+      <div class="icard" data-modal="cc-google"><span class="more-dot">＋</span>
+        <h3>💳 Google Search ads — intent</h3>
+        <div class="rowmap"><b>Capture the queries you don't rank #1 for:</b> intent tiers + landing-page match, with offline conversions pushed back to Google.</div>
+        <div class="note"><b>→</b> The most efficient paid — the demand is already there.</div>
+        <div class="tagline"><span class="tg paid">paid</span></div>
+      </div>
+      <div class="icard" data-modal="cc-calc"><span class="more-dot">＋</span>
+        <h3>🧮 Savings calculator — magnet + qualifier</h3>
+        <div class="rowmap"><b>A lead magnet that also qualifies:</b> its inputs (property type, basis) are the first scoring signal; abandon-recovery brings back the rest.</div>
+        <div class="note"><b>→</b> Under-leveraged today; the softest way to capture qualification data.</div>
+        <div class="tagline"><span class="tg org">organic</span><span class="tg ghl">GHL</span></div>
+      </div>
+      <div class="icard" data-modal="cc-compare"><span class="more-dot">＋</span>
+        <h3>⚔️ Comparison content</h3>
+        <div class="rowmap"><b>Intercept high-intent shoppers:</b> rank for "[competitor] review" and "$5k vs $15k study" — people already deciding.</div>
+        <div class="note"><b>→</b> Already working; just route it into the instrumented funnel.</div>
+        <div class="tagline"><span class="tg org">organic</span></div>
+      </div>
+      <div class="icard" data-modal="cc-geo"><span class="more-dot">＋</span>
+        <h3>🤖 GEO — AI-answer optimization</h3>
+        <div class="rowmap"><b>Get cited in AI answers</b> (ChatGPT, Perplexity, Google AI Overviews) when investors ask about cost seg — the next frontier of search. <b>Already running via an agency.</b></div>
+        <div class="note"><b>→</b> My role: measure it on the attribution spine + feed it citable content — not take it over.</div>
+        <div class="tagline"><span class="tg org">organic</span><span class="tg ai">AI search</span><span class="tg org">agency-run</span></div>
+      </div>
+    </div>
+
+    <div class="grouplabel gl-now">① Start here · Convert — automated email</div>
+    <div class="grid2">
+      <div class="icard" data-modal="dc-lifecycle"><span class="more-dot">＋</span>
+        <h3>✉️ Lifecycle &amp; outbound email campaigns</h3>
+        <div class="rowmap"><b>Beyond a welcome series:</b> new-lead education, calculator-abandon recovery, proposal-sent acceleration, and closed-lost re-engagement timed to tax season — segmented by investor type (STR / multifamily / commercial).</div>
+        <div class="note"><b>→</b> Recovers pipeline from leads you've already paid to acquire.</div>
+        <div class="tagline"><span class="tg ghl">GHL email + workflows</span><span class="tg ai">AI drafts · human approves</span></div>
+      </div>
+      <div class="icard" data-modal="dc-outbound"><span class="more-dot">＋</span>
+        <h3>🎯 Enriched, human-approved outbound</h3>
+        <div class="rowmap"><b>Proactive, not spray-and-pray:</b> reach owners around a trigger event (recent purchase, qualifying property) with a genuinely relevant, personalized message.</div>
+        <div class="note"><b>→</b> Exactly the enrich → gate → sequence discipline I've already built.</div>
+        <div class="tagline"><span class="tg ai">AI: personalization</span><span class="tg ghl">GHL sequences</span></div>
+      </div>
+    </div>
+
+    <div class="grouplabel gl-next">② Build out · Create demand — social &amp; content</div>
+    <div class="grid2">
+      <div class="icard" data-modal="dc-social"><span class="more-dot">＋</span>
+        <h3>💬 AI social engagement + retargeting</h3>
+        <div class="rowmap"><b>Turn engagement into conversations:</b> AI monitors comments, DMs and mentions and drafts on-brand replies (a person approves every send); everyone who engages enters a retargeting + nurture audience.</div>
+        <div class="note"><b>→</b> No attention wasted — social interest becomes a captured, measurable lead.</div>
+        <div class="tagline"><span class="tg ai">AI: draft &amp; rank</span><span class="tg org">organic</span><span class="tg paid">retargeting</span></div>
+      </div>
+      <div class="icard" data-modal="dc-content"><span class="more-dot">＋</span>
+        <h3>🎬 Automated content + scheduling</h3>
+        <div class="rowmap"><b>A content engine, not a content hire:</b> AI drafts short-form per persona (repurposing Seneca's expertise, case studies &amp; calculator insights), scheduled across IG / TikTok / LinkedIn / YT; a creative-test loop scales winners and cuts losers.</div>
+        <div class="note"><b>→</b> Win on volume of <em>tests</em>, not spend; editorial approval stays human.</div>
+        <div class="tagline"><span class="tg ai">AI: generate + analyst</span><span class="tg ghl">GHL planner</span></div>
+      </div>
+      <div class="icard" data-modal="dc-authority"><span class="more-dot">＋</span>
+        <h3>🎙️ Authority content</h3>
+        <div class="rowmap"><b>Borrow trusted audiences:</b> podcast guesting for Dylan (Seneca's co-founder) on BiggerPockets-style shows + co-hosted CPA webinars — the ICP already listens, near-zero cost, evergreen.</div>
+        <div class="note"><b>→</b> Feeds both the content library and the partner channel.</div>
+        <div class="tagline"><span class="tg org">organic</span><span class="tg ghl">GHL outreach pipeline</span></div>
+      </div>
+      <div class="icard" data-modal="dc-paid"><span class="more-dot">＋</span>
+        <h3>📣 Paid amplification (Meta + Google)</h3>
+        <div class="rowmap"><b>Scale the proven:</b> put budget behind the organic hooks that already won — Meta prospecting to investor lookalikes with the $171k-deduction offer, plus Google.</div>
+        <div class="note"><b>→</b> Never pay to scale a guess; media buying stays with the team/agencies.</div>
+        <div class="tagline"><span class="tg paid">paid</span></div>
+      </div>
+    </div>
+
+    <div class="grouplabel gl-scale">③ Scale · Amplify — borrowed trust (referral &amp; creators)</div>
+    <div class="grid2">
+      <div class="icard" data-modal="am-refer"><span class="more-dot">＋</span>
+        <h3>🔁 Refer-a-friend</h3>
+        <div class="rowmap"><b>Systematise word-of-mouth:</b> ask at the moment of delight (study delivered, savings realised), tracked with referral codes on the attribution spine.</div>
+        <div class="note"><b>→</b> Word-of-mouth already works for Seneca — make it a tracked program, not an accident.</div>
+        <div class="tagline"><span class="tg org">organic</span><span class="tg ghl">GHL</span></div>
+      </div>
+      <div class="icard" data-modal="am-creator"><span class="more-dot">＋</span>
+        <h3>🎬 Influencer / creator marketing</h3>
+        <div class="rowmap"><b>Borrow creators' trusted audiences:</b> partner with RE / finance creators, co-create content, boost the top performers, and measure <b>ROAS per creator, per piece</b> — keep winners, cut the rest.</div>
+        <div class="note"><b>→</b> Pairs with refer-a-friend — both turn borrowed trust into pre-warmed leads.</div>
+        <div class="tagline"><span class="tg org">organic</span><span class="tg paid">paid boost</span></div>
+      </div>
+    </div>
+
+    <div class="loop" style="background:rgba(183,156,255,.05)"><span class="ic">↺</span><p><strong>One system, not scattered tactics:</strong> capture protects the base; creation + amplification grow it. Content &amp; creators make attention → engagement + retargeting capture it → email + nurture warm it → the tax calendar converts it → attribution tells us what to make more of. Every piece is measured to pipeline, never vanity reach.</p></div>
+  </section>
+
+  <!-- ===== P4 — BUILT TO MEASURE ===== -->
+  <section class="page" id="p4">
+    <div class="kicker" style="color:var(--sky)"><span style="background:var(--sky);width:26px;height:1.5px;display:inline-block"></span>How it's built &amp; measured</div>
+    <h1>All of it runs on your stack — <span class="sk">and every dollar is accountable</span></h1>
+    <p class="lead">
+      None of this is a new platform to rip-and-replace into. It lives on <strong>GoHighLevel + GA4 + GTM + your Google/Meta accounts</strong>. AI does the heavy lifting it's good at — drafting, ranking, reconciling data across tools — and <strong>a person approves anything customer-facing or money-moving.</strong> It also <strong>feeds the systems you already run</strong> rather than competing with them.
+    </p>
+    <p class="hintline">The four moving parts, in summary — the full channel-by-channel flow is the data model below. <span class="k">click</span> any card for detail.</p>
+
+    <div class="grid2">
+      <div class="icard" data-modal="bm-enrich"><span class="more-dot">＋</span>
+        <h3>🧩 Enrich &amp; score on intake</h3>
+        <div class="rowmap">On form / calculator submit, an agent writes structured GHL fields — <b>property_type, est_cost_basis, entity_type, readiness_score, est_first_year_deduction, confidence</b> — that everything downstream branches on.</div>
+      </div>
+      <div class="icard" data-modal="bm-ai"><span class="more-dot">＋</span>
+        <h3>🧠 AI proposes, a human decides</h3>
+        <div class="rowmap">Every AI element drafts options and ranked recommendations. <b>Nothing customer-facing or money-moving runs unattended.</b> Approval queues on outbound, replies, and budget shifts.</div>
+      </div>
+      <div class="icard" data-modal="bm-attr"><span class="more-dot">＋</span>
+        <h3>📈 One attribution spine</h3>
+        <div class="rowmap">GHL stages fire GA4 events via GTM; offline conversions push back to Google/Meta. <b>First-touch → closed-won</b> across paid, SEO, partners &amp; social — one honest basis to compare channels and agencies on.</div>
+      </div>
+      <div class="icard" data-modal="bm-brief"><span class="more-dot">＋</span>
+        <h3>🗂️ Kill / scale / watch — weekly</h3>
+        <div class="rowmap">One brief re-weights budget, creative and nurture on evidence, not vibes. I own a monthly <b>qualified-lead + pipeline number</b> at a definition we agree on, with a public dashboard and early warnings.</div>
+      </div>
+    </div>
+
+    <div class="loop"><span class="ic">🔒</span><p><strong>Governance by design:</strong> confidence-scored data (low-confidence is flagged, never trusted blindly), input gating so junk never reaches advisors or nurture, and human approval on every send. Documented in GHL snapshots and runbooks — nothing critical lives only in my head.</p></div>
+
+    <details class="datamodel" open>
+      <summary><span class="ic">🗺️</span> The full data model — how <em>every</em> channel &amp; effort is measured <span class="tagm">GHL-native</span><span class="chev">▾</span></summary>
+      <div class="dm-body">
+        <div class="def" style="margin-top:6px">Every effort in this plan — paid, SEO, partners, social, email, content — flows down <span class="term">one instrumented path</span> into a single system of record (GoHighLevel), with its <b>source stamped on first touch</b>. That's what lets all of them compete on the same ruler: <span class="term">first-touch → closed-won</span>. Click any card for how that layer works.</div>
+        <p class="hintline" style="margin:10px 0 4px"><span class="k">click</span> any card · <span class="k">Esc</span> to close</p>
+
+        <div class="dm-flow2">
+
+          <!-- Lane 1: Sources -->
+          <div class="dm-row">
+            <div class="dm-lane"><span class="n">01</span><span class="t">Sources · every channel</span></div>
+            <div class="dm-cards">
+              <div class="dm-card" data-modal="dm-paid"><span class="more-dot">＋</span><span class="bdg">tagged</span><h4>💳 Paid</h4><p>Google, Meta, partner-acquisition ads, retargeting, amplification — every click tagged (GCLID/FBCLID/UTM).</p></div>
+              <div class="dm-card" data-modal="dm-organic"><span class="more-dot">＋</span><span class="bdg">tagged</span><h4>🌱 Organic &amp; owned</h4><p>Programmatic SEO, GEO (AI search, agency), calculator, refer-a-friend.</p></div>
+              <div class="dm-card" data-modal="dm-partner"><span class="more-dot">＋</span><span class="bdg">per-partner</span><h4>🤝 Partner / CPA</h4><p>Referrals &amp; co-marketing — a unique link per partner.</p></div>
+              <div class="dm-card" data-modal="dm-social"><span class="more-dot">＋</span><span class="bdg">tagged</span><h4>📱 Social &amp; content</h4><p>Short-form, AI engagement/DMs, podcasts &amp; webinars.</p></div>
+              <div class="dm-card" data-modal="dm-email"><span class="more-dot">＋</span><span class="bdg">tracked</span><h4>✉️ Email &amp; outbound</h4><p>Lifecycle nurture + enriched outbound sequences.</p></div>
+            </div>
+          </div>
+          <div class="dm-conn"><svg width="20" height="18"><path d="M10 0 V12 M4 8 L10 14 L16 8" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+
+          <!-- Lane 2: Capture -->
+          <div class="dm-row">
+            <div class="dm-lane"><span class="n">02</span><span class="t">Capture</span></div>
+            <div class="dm-cards">
+              <div class="dm-card" data-modal="op-lead"><span class="more-dot">＋</span><h4>🖥️ Landing pages</h4><p>Segment + partner LPs.</p></div>
+              <div class="dm-card" data-modal="op-lead"><span class="more-dot">＋</span><h4>🧮 Calculator</h4><p>Lead magnet that doubles as a soft qualifier.</p></div>
+              <div class="dm-card" data-modal="op-lead"><span class="more-dot">＋</span><h4>📝 Forms &amp; social capture</h4><p>Intake forms + UTM'd social links / DM captures.</p></div>
+            </div>
+          </div>
+          <div class="dm-conn"><svg width="20" height="18"><path d="M10 0 V12 M4 8 L10 14 L16 8" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+
+          <!-- Lane 3: Record -->
+          <div class="dm-row">
+            <div class="dm-lane"><span class="n">03</span><span class="t">System of record</span></div>
+            <div class="dm-cards">
+              <div class="dm-card wide" data-modal="dm-record"><span class="more-dot">＋</span><span class="bdg">source of truth</span><h4>📇 Contact created in GoHighLevel</h4><p>One record per lead. <b>First-touch source, campaign &amp; partner preserved</b> from here all the way to closed-won.</p></div>
+            </div>
+          </div>
+          <div class="dm-conn"><svg width="20" height="18"><path d="M10 0 V12 M4 8 L10 14 L16 8" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+
+          <!-- Lane 4: Enrich & score -->
+          <div class="dm-row">
+            <div class="dm-lane"><span class="n">04</span><span class="t">Enrich &amp; score</span></div>
+            <div class="dm-cards">
+              <div class="dm-card" data-modal="bm-enrich"><span class="more-dot">＋</span><span class="bdg">agent</span><h4>🔎 Enrichment agent</h4><p>Property records, entity, est. basis — confidence-scored.</p></div>
+              <div class="dm-card" data-modal="bm-enrich"><span class="more-dot">＋</span><span class="bdg">agent</span><h4>🎯 Scoring agent</h4><p>Fit × readiness → one score; junk gated out.</p></div>
+              <div class="dm-card" data-modal="bm-enrich"><span class="more-dot">＋</span><h4>🗃️ Structured fields</h4><p>Written to GHL custom fields for everything downstream.</p></div>
+            </div>
+          </div>
+          <div class="dm-conn"><svg width="20" height="18"><path d="M10 0 V12 M4 8 L10 14 L16 8" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+
+          <!-- Lane 5: Nurture & handoff -->
+          <div class="dm-row">
+            <div class="dm-lane"><span class="n">05</span><span class="t">Nurture &amp; handoff</span></div>
+            <div class="dm-cards">
+              <div class="dm-card" data-modal="op-client"><span class="more-dot">＋</span><span class="bdg">workflows</span><h4>📧 Segmented nurture</h4><p>If/else by segment; tax-calendar aware.</p></div>
+              <div class="dm-card" data-modal="op-client"><span class="more-dot">＋</span><span class="bdg">feeds existing</span><h4>🧠 Your nurture AI</h4><p>Now personalises on real attributes — we feed it.</p></div>
+              <div class="dm-card" data-modal="op-opportunity"><span class="more-dot">＋</span><span class="bdg">human</span><h4>📋 Context card → advisor</h4><p>Property, est. deduction, score + the why.</p></div>
+            </div>
+          </div>
+          <div class="dm-conn"><svg width="20" height="18"><path d="M10 0 V12 M4 8 L10 14 L16 8" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+
+          <!-- Lane 6: Measure -->
+          <div class="dm-row">
+            <div class="dm-lane"><span class="n">06</span><span class="t">Measure — all channels</span></div>
+            <div class="dm-cards">
+              <div class="dm-card" data-modal="bm-attr"><span class="more-dot">＋</span><span class="bdg">GTM → GA4</span><h4>📈 Stage = an event</h4><p>Offline conversions pushed back to Google/Meta.</p></div>
+              <div class="dm-card" data-modal="bm-attr"><span class="more-dot">＋</span><h4>🧵 Attribution spine</h4><p>First-touch → closed-won across paid, SEO, partners, social &amp; email.</p></div>
+              <div class="dm-card" data-modal="dm-metrics"><span class="more-dot">＋</span><h4>📐 The metrics</h4><p>CPL, CPQL, CAC, ROAS, pipeline — per channel &amp; segment.</p></div>
+              <div class="dm-card" data-modal="bm-brief"><span class="more-dot">＋</span><span class="bdg">human decides</span><h4>🗂️ Weekly brief</h4><p>Kill / scale / watch — budget follows evidence.</p></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="loop" style="background:rgba(90,169,255,.05);margin-top:18px"><span class="ic">🎯</span><p><strong>The whole point:</strong> whether a client came from a CPA referral, a TikTok, a nurture email or a Google ad, first-touch is preserved all the way to closed-won — so every channel competes on <strong>one honest ruler</strong>, and budget follows evidence instead of the loudest channel.</p></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== P5 — WHAT I BRING ===== -->
+  <section class="page" id="p5">
+    <div class="kicker">What I bring</div>
+    <h1>Real results, on <span class="em">this exact stack</span></h1>
+    <p class="lead">
+      Three-plus years turning campaign, media and customer data into measurable lift — with the tools Seneca runs (GA4, GTM, Google/Meta, BI) and AI automation on top.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><div class="big">Media efficiency</div><div class="cap">Improved <b>ROI</b> through media-spend efficiency across Google, Meta &amp; programmatic (Hyve Mobile).</div></div>
+      <div class="stat s"><div class="big">Conversion &amp; tracking</div><div class="cap">Lifted <b>conversion rate</b> via cross-functional optimisation + tracking hygiene (GA4 / GTM).</div></div>
+      <div class="stat g"><div class="big">Audience growth</div><div class="cap">Grew <b>social audiences</b> with A/B-tested creative across big brands (MTN NG, Johnnie Walker).</div></div>
+    </div>
+    <p class="hintline"><span class="k">click</span> any card for the detail</p>
+
+    <div class="grid2" style="margin-top:6px">
+      <div class="icard" data-modal="pf-analytics"><span class="more-dot">＋</span>
+        <h3>📊 Performance analytics &amp; attribution</h3>
+        <div class="rowmap">AdOps at <b>Hyve Mobile</b>: GA4 + GTM tracking, pixels &amp; attribution; customer segmentation, churn &amp; CLV models; AI agents + BI dashboards (Python, Grafana, Looker).</div>
+      </div>
+      <div class="icard" data-modal="pf-influencer"><span class="more-dot">＋</span>
+        <h3>🎬 Influencer &amp; creator marketing</h3>
+        <div class="rowmap">At <b>Zaio</b>: partnered with content creators, co-created content, <b>boosted top performers</b>, and measured <b>ROAS per creator, per piece</b> — keeping winners and cutting the rest.</div>
+      </div>
+      <div class="icard" data-modal="pf-campaigns"><span class="more-dot">＋</span>
+        <h3>🧪 Campaigns, CRO &amp; testing</h3>
+        <div class="rowmap"><b>Clarence AI / AfroStory</b>: high-profile accounts delivered on time; QA on creatives, landing pages &amp; tracking; A/B frameworks; audience segmentation.</div>
+      </div>
+      <div class="icard" data-modal="pf-sallie"><span class="more-dot">＋</span>
+        <h3>🛠️ I build the systems myself</h3>
+        <div class="rowmap">On my own time I built <b>Sallie</b> — a working AI outreach system with the exact plumbing this plan needs: <b>enrichment, confidence-scoring, input-gating, an approval queue, and an autonomous review loop</b> a human signs off. Proof I can build this, not just describe it.</div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <b>Foundation:</b> BBusSc Management Studies (Analytics), University of Cape Town + Marketing/Stats postgrad study · Google Analytics, DataCamp Data Science, ALX AI certifications · SQL, Python, R, Power BI, Tableau, Looker, GA4, GTM.<br>
+      <b>How I'd start:</b> listen and instrument before changing anything — agree what a "qualified" lead means with the advising team, ship the enrich + context-card layer for one segment, and stand up the attribution baseline. Small, reversible, measurable.
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="ov"><div class="modal" id="mbox"></div></div>
+
+<script>
+  document.querySelectorAll('.pagenav button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.pagenav button').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById(b.dataset.page).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  const M = {
+    /* ---- Page 1 value chain ---- */
+    'op-traffic':{k:'Value chain · 1',h:'Traffic — the top of the funnel',
+      body:`<p><strong>What it is:</strong> the clicks arriving from every source — organic SEO, paid search &amp; social, partner referrals, and social content.</p>
+      <div class="sub">Where Seneca is</div><ul><li>Genuinely elite: programmatic SEO across 50 states + 40+ property types, plus competitor-comparison content.</li><li>This is a moat most firms would envy.</li></ul>
+      <div class="sub g">Why I'd <em>not</em> start here</div><p>Traffic isn't the bottleneck, so pouring spend into more clicks is the expensive way to grow. I'd protect and compound it while I fix the higher-leverage middle of the funnel first.</p>`},
+    'op-lead':{k:'Value chain · 2',h:'Lead — turning a click into a contact',
+      body:`<p><strong>What it is:</strong> a visitor becomes a lead the moment they give you contact info. The lever is the <strong>offer + landing page + lead magnet</strong>.</p>
+      <div class="sub">How I'd build it</div><ul><li>Segment-matched landing pages (STR vs multifamily vs commercial) instead of one generic page.</li><li>The savings calculator doubles as a <strong>soft qualifier</strong> — its inputs (property type, rough basis) are exactly the data we need.</li></ul>
+      <div class="sub g">Why it matters</div><p>High-intent traffic hitting a generic page is the cheapest lift Seneca has. Matching the message to the segment lifts conversion with zero extra ad spend.</p>`},
+    'op-qualified':{k:'Value chain · 3 — the wedge',h:'Qualified — enrich &amp; score before anyone touches it',
+      body:`<p><strong>What it is:</strong> deciding whether a lead <em>fits</em> the ICP and is <em>ready</em> — before it reaches an advisor or a nurture sequence. This is the single biggest gap and where I'd begin.</p>
+      <div class="sub">What actually qualifies a cost-seg lead</div><ul><li><strong>Basis</strong> — roughly $200k+ of depreciable improvement value (land is excluded).</li><li><strong>Income to absorb the loss</strong> — passive income, or STR / material-participation status to offset active income.</li><li><strong>Holding period</strong> — enough runway that recapture on a near-term sale doesn't erase the benefit.</li><li><strong>Disqualifiers</strong> — primary residence, an imminent sale, or no income to offset.</li></ul>
+      <div class="sub">How I'd build it (GHL-native)</div><ul><li>An inbound webhook fires on submit → an <strong>enrichment agent</strong> pulls property records, entity lookup and estimated cost basis, confidence-scored by source.</li><li>A <strong>scoring agent</strong> combines the fit criteria above × readiness (calculator use, page visits, engagement) into one score; low-confidence data is flagged, junk is gated out.</li></ul>
+      <p><span class="fld">property_type</span><span class="fld">est_cost_basis</span><span class="fld">entity_type</span><span class="fld">readiness_score</span><span class="fld">est_first_year_deduction</span><span class="fld">confidence</span></p>
+      <div class="sub g">The analyst's unfair advantage</div><p>Seneca's <strong>10,200+ completed studies are a labelled dataset</strong> — which property types, states and basis ranges actually close. I'd build the readiness score from <em>your own history</em>, not generic benchmarks, so it sharpens with every study. A 2× improvement here beats 2× more traffic at the same spend.</p>`},
+    'op-opportunity':{k:'Value chain · 4',h:'Opportunity — context, not a name',
+      body:`<p><strong>What it is:</strong> the moment a lead becomes a real sales conversation on an advisor's calendar. The lever is <strong>speed-to-lead + the quality of the handoff</strong>.</p>
+      <div class="sub">How I'd build it</div><ul><li>On a readiness threshold or a behaviour spike, GHL assembles a <strong>context card</strong> for the advisor: property &amp; location, estimated basis and first-year deduction, entity type, score, and the <em>why now</em>.</li><li>Routed instantly — responding fast matters disproportionately in high-ticket, considered purchases.</li></ul>
+      <div class="sub g">Why it matters</div><p>Advisors open every call already knowing the deal instead of dialing a cold name. Warmer calls, shorter time-to-qualify, higher close rate across the whole advising team.</p>`},
+    'op-client':{k:'Value chain · 5',h:'Client — nurture on the tax calendar',
+      body:`<p><strong>What it is:</strong> converting an opportunity into a signed study — often not on the first contact. The lever is <strong>follow-up timed to tax events</strong>.</p>
+      <div class="sub">How I'd build it</div><ul><li>GHL workflows + date fields drive behavioural + seasonal re-engagement around <strong>bonus-depreciation deadlines</strong>, year-end planning, filing dates, and new acquisitions.</li><li>Feeds your <strong>existing nurture AI</strong> with real attributes so it personalises on more than behaviour.</li></ul>
+      <div class="sub g">Why it matters</div><p>Cost-seg deals often close months after first contact — when a deadline or an acquisition makes them urgent. The biggest driver right now is the <strong>bonus-depreciation schedule</strong>: it's the clearest "act now" reason for an owner on the fence. A "not now" in June is often a "yes" in November — timing recovers pipeline you already paid to create.</p>`},
+
+    /* ---- Page 2 partnerships ---- */
+    'pt-acquire':{k:'Partnerships',h:'Targeted partner acquisition',
+      body:`<p><strong>What it is:</strong> recruiting partners the way you'd acquire customers — precise paid campaigns aimed at the professionals who advise investors, not at consumers.</p>
+      <div class="sub">How I'd build it</div><ul><li>LinkedIn targeting by job title / industry (CPAs, tax advisors, wealth managers, brokers, property managers); Meta / Google to reinforce.</li><li>Every audience routes to its own <strong>custom partner landing page</strong>, tracked to sign-ups.</li><li>I own the targeting logic and the measurement.</li></ul>
+      <div class="sub g">Why it matters</div><p>Referrals from CPAs and advisors are consistently among the highest-quality, lowest-CAC leads in professional services — they arrive pre-sold and pre-qualified. Acquiring one good partner can mean investor referrals every tax season for years.</p>`},
+    'pt-ai':{k:'Partnerships',h:'AI partner sourcing &amp; scoring',
+      body:`<p><strong>What it is:</strong> the same enrichment + scoring engine that qualifies leads, pointed at the <em>partner</em> ecosystem — so partner growth becomes as data-driven as lead growth.</p>
+      <div class="sub">How I'd build it</div><ul><li><strong>Lookalike sourcing:</strong> profile your best-referring CPAs, advisors and brokers, then have AI surface similar firms/professionals to target.</li><li><strong>Refer-likelihood scoring:</strong> rank prospective and existing partners on the signals that predict real referrals (practice size, client base, engagement, past activity) — so BD time goes to the partners most likely to send business.</li><li><strong>Dormant-partner detection:</strong> flag partners who've gone quiet for a re-activation play, before they're lost.</li></ul>
+      <div class="sub g">Why it matters</div><p>Partner acquisition is usually a manual, gut-feel hunt. Treating partners as a scored, enriched pipeline — exactly like leads — means the relationships you invest in are the ones the data says will actually refer. AI proposes and ranks; you decide who to pursue.</p>`},
+    'pt-lp':{k:'Partnerships',h:'Custom partner landing pages',
+      body:`<p><strong>What it is:</strong> dedicated pages that speak to an advisor, not a property owner — because sending a CPA to the consumer site wastes the intent.</p>
+      <div class="sub">How I'd build it</div><ul><li>GHL funnels, one page per partner type, with the core promise: <em>"offer cost seg to your clients — you keep the relationship, we handle the engineering + audit defense."</em></li></ul>
+      <div class="sub g">Why it matters</div><p>A page written for a CPA's incentives (add value to clients, zero technical work, protected reputation) converts far better than a generic one — and every sign-up is attributable.</p>`},
+    'pt-kit':{k:'Partnerships',h:'Partner enablement kit',
+      body:`<p><strong>What it is:</strong> the assets that let a partner introduce cost seg to their client without effort or risk.</p>
+      <div class="sub">What's in it</div><ul><li>Co-branded savings-calculator links, one-pagers, client-ready explainers, email templates, short explainer videos.</li><li>Templated in GHL, generated / personalised with AI, co-branded per partner.</li></ul>
+      <div class="sub g">Why it matters</div><p>The easier it is for a partner to bring it up, the more they do. The <strong>calculator is the natural conversation-opener</strong> — "let's see what your building is hiding" — and it captures qualifying data at the same time.</p>`},
+    'pt-portal':{k:'Partnerships',h:'Partner portal &amp; onboarding',
+      body:`<p><strong>What it is:</strong> a self-serve home where partners see their referrals' status, study progress and earnings, plus a guided onboarding track.</p>
+      <div class="sub">How I'd build it</div><ul><li>GoHighLevel portal + Affiliate Manager for tracking, links and commissions.</li><li>An onboarding sequence that ramps a new partner to their first referral quickly.</li></ul>
+      <div class="sub g">Why it matters</div><p>Transparency builds trust and removes the "what happened to my referral?" friction — so partners refer more, with less hand-holding from the team.</p>`},
+    'pt-attr':{k:'Partnerships',h:'Referral attribution — first-touch → closed-won',
+      body:`<p><strong>What it is:</strong> tracking every partner referral all the way to a closed study, <strong>by partner</strong> — so intros become measurable revenue.</p>
+      <div class="sub">How I'd build it</div><ul><li>Unique partner links / UTMs → GHL contact with the partner stamped on first touch → GA4 events via GTM at each stage.</li><li>Every referral also enriched &amp; scored, so partner quality is comparable.</li></ul>
+      <div class="sub g">Why it matters</div><p>You can finally answer "which partners actually drive revenue?" — then reward the best, coach the rest, and recruit lookalikes with evidence instead of gut feel.</p>`},
+    'pt-timing':{k:'Partnerships',h:'Tax-calendar timing',
+      body:`<p><strong>What it is:</strong> timing outreach to partners and their clients around the events when cost seg actually sells.</p>
+      <div class="sub">How I'd build it</div><ul><li>GHL date fields + workflows triggered by acquisitions, year-end planning and filing deadlines.</li><li>AI drafts the timing logic and copy; a human approves before anything sends.</li></ul>
+      <div class="sub g">Why it matters</div><p>Demand clusters on tax events — and the <strong>bonus-depreciation phase schedule</strong> is the clearest deadline of all. Reaching a partner's client at the right moment turns a "not now" into a booked study instead of a lost lead.</p>`},
+    'pt-email':{k:'Partnerships · long-run (organic)',h:'Automated partner email campaigns',
+      body:`<p><strong>What it is:</strong> ongoing, mostly-organic email that keeps the partner ecosystem warm and active.</p>
+      <div class="sub">What runs</div><ul><li>Seasonal playbooks ("year-end tax moves for STR owners"), partner wins &amp; case studies, product updates, and re-engagement of quiet partners.</li><li>Segmented by partner type in GHL; AI drafts, a human approves.</li></ul>
+      <div class="sub g">Why it matters</div><p>Retention of your best channel is nearly free and compounds. Staying top-of-mind through every tax cycle means partners think of Seneca first when a client's situation fits.</p>`},
+    'pt-comktg':{k:'Partnerships · long-run',h:'Co-marketing &amp; engagement',
+      body:`<p><strong>What it is:</strong> campaigns that help partners look good to <em>their</em> clients — so marketing reaches two audiences at once.</p>
+      <div class="sub">What runs</div><ul><li>Co-branded webinars, client-education email, and social engagement campaigns partners can run using our assets.</li><li>Mostly organic, with an optional paid boost behind the best-performing pieces.</li></ul>
+      <div class="sub g">Why it matters</div><p>The partner gets genuine value to offer their clients; Seneca gets pipeline and brand exposure to a pre-qualified investor audience. Everyone wins, and it's all measured to referrals.</p>`},
+
+    /* ---- Page 3 demand creation ---- */
+    'dc-lifecycle':{k:'Automated email',h:'Lifecycle &amp; outbound email campaigns',
+      body:`<p><strong>What it is:</strong> the automated email that works the leads you already have, beyond a simple welcome series.</p>
+      <div class="sub">Core sequences</div><ul><li>New-lead education (5–7 touches), calculator-abandon recovery, proposal-sent acceleration, closed-lost re-engagement timed to tax season.</li><li>Segmented by investor type — STR, multifamily, commercial — with different proof and math for each.</li><li>Built in GHL; AI drafts copy, a human approves.</li></ul>
+      <div class="sub g">Why it matters</div><p>This is some of the highest-ROI work there is — recovering pipeline from leads Seneca has <strong>already paid to acquire</strong>, at near-zero marginal cost.</p>`},
+    'dc-outbound':{k:'Automated email',h:'Enriched, human-approved outbound',
+      body:`<p><strong>What it is:</strong> proactive outreach to owners around a trigger event — done with relevance, not volume.</p>
+      <div class="sub">How I'd build it</div><ul><li>Identify a trigger (recent purchase, qualifying property type), enrich the record, then send a genuinely personalised, relevant message.</li><li>Enrich → gate → sequence, with a human approving before anything sends.</li></ul>
+      <div class="sub g">Why it matters</div><p>This is exactly the discipline I built into Sallie — invalid or low-confidence records never enter a sequence. It's outbound that respects the recipient, so it protects the brand while it adds pipeline.</p>`},
+    'dc-social':{k:'Create demand · social',h:'AI social engagement + retargeting',
+      body:`<p><strong>What it is:</strong> turning passive social engagement into real conversations — and making sure no engagement is wasted.</p>
+      <div class="sub">How it works</div><ul><li>AI monitors comments, DMs and mentions, drafts relevant on-brand replies, and surfaces the warmest prospects into a queue; <strong>a person approves every message before it sends.</strong></li><li>Everyone who watches, comments or clicks enters a <strong>retargeting + nurture audience</strong> via pixels and GHL capture — organic interest becomes a paid follow-up and a captured lead.</li></ul>
+      <div class="sub g">Why it matters</div><p>Most brands let social engagement evaporate. This captures intent the moment it appears and bridges social <em>attention</em> to the instrumented funnel — the step most content programs skip, which is why their content never shows up as pipeline.</p>`},
+    'dc-retarget':{k:'AI lead-engagement on social',h:'Retarget the engagers',
+      body:`<p><strong>What it is:</strong> making sure no piece of engagement is wasted.</p>
+      <div class="sub">How I'd build it</div><ul><li>Everyone who watches, comments or clicks enters a retargeting + nurture audience via pixels and GHL capture.</li><li>Organic interest becomes a paid follow-up and, eventually, a captured lead.</li></ul>
+      <div class="sub g">Why it matters</div><p>It's the bridge between social <em>attention</em> and the instrumented funnel — the step most content programs skip, which is why their content never shows up as pipeline.</p>`},
+    'dc-content':{k:'Create demand · content',h:'Automated content + scheduling',
+      body:`<p><strong>What it is:</strong> a content <em>engine</em> rather than a content hire — that also ships on a schedule and learns weekly.</p>
+      <div class="sub">How it works</div><ul><li>AI drafts short-form hooks, scripts and carousels per persona, repurposing Seneca's expertise, case studies and calculator insights → IG / TikTok / LinkedIn / YouTube Shorts.</li><li>A scheduled multi-platform calendar in GHL's social planner; a <strong>creative-test loop</strong> generates angles → tests → scales winners → cuts losers, with an AI analyst summarising what won.</li><li>Editorial approval stays human.</li></ul>
+      <div class="sub g">Why it matters</div><p>The STR / investor audience lives on short-form. This makes consistent, high-volume publishing possible without headcount — and you win on the <strong>volume of tests</strong>, not spend: cheap iteration finds the hooks worth putting paid budget behind.</p>`},
+    'dc-schedule':{k:'Grow the social presence',h:'Automated scheduling &amp; testing',
+      body:`<p><strong>What it is:</strong> shipping on a schedule and learning from it every week.</p>
+      <div class="sub">How I'd build it</div><ul><li>A scheduled multi-platform calendar in GHL's social planner.</li><li>A creative-test loop: generate angles → test → scale winners → cut losers automatically, with an AI analyst summarising what won.</li></ul>
+      <div class="sub g">Why it matters</div><p>You win on the <strong>volume of tests</strong>, not the volume of spend. Cheap, fast iteration finds the hooks worth putting paid budget behind.</p>`},
+    'dc-authority':{k:'Grow the social presence',h:'Authority content — podcasts &amp; webinars',
+      body:`<p><strong>What it is:</strong> borrowing audiences that already trust a host, instead of building one from scratch.</p>
+      <div class="sub">What runs</div><ul><li>Podcast guesting for Dylan (Seneca's co-founder) on BiggerPockets-style shows where the exact ICP already listens.</li><li>Co-hosted CPA webinars ("year-end tax moves for STR owners").</li><li>An outreach pipeline in GHL to book slots; every appearance repurposed into clips.</li></ul>
+      <div class="sub g">Why it matters</div><p>Near-zero cost, evergreen backlinks and authority — and it feeds both the content library and the partner channel at once.</p>`},
+    'dc-paid':{k:'Grow the social presence',h:'Paid amplification',
+      body:`<p><strong>What it is:</strong> putting budget behind what has already proven it works organically.</p>
+      <div class="sub">How it works</div><ul><li>Take the organic hooks that already won and scale them — <strong>Meta prospecting</strong> to investor lookalikes with the $171k-deduction offer, plus Google.</li><li>I own the measurement and the creative-test signal; media buying stays with the team/agencies.</li></ul>
+      <div class="sub g">Why it matters</div><p>You never pay to scale a guess. Paid becomes an amplifier of proven demand, not a gamble — which is the difference between efficient spend and "spend more on ads."</p>`},
+
+    /* ---- Page 4 built to measure ---- */
+    'bm-enrich':{k:'Built to measure',h:'Enrich &amp; score on intake',
+      body:`<p><strong>What it is:</strong> the data layer everything else depends on. On submit, an agent writes structured fields into GoHighLevel.</p>
+      <p><span class="fld">property_type</span><span class="fld">est_cost_basis</span><span class="fld">entity_type</span><span class="fld">readiness_score</span><span class="fld">est_first_year_deduction</span><span class="fld">confidence</span></p>
+      <div class="sub g">Why it matters</div><p>Without it, nurture and sales personalise on behaviour alone. With it, every workflow, context card and report branches on real attributes — it's the foundation that makes the rest sharp.</p>`},
+    'bm-ai':{k:'Built to measure',h:'AI proposes, a human decides',
+      body:`<p><strong>What it is:</strong> the governance rule that runs through everything here.</p>
+      <div class="sub">How it works</div><ul><li>AI drafts options and ranked recommendations — copy, creative, budget shifts, replies.</li><li>Approval queues sit in front of anything customer-facing or money-moving; a person approves or declines.</li><li>Nothing runs unattended.</li></ul>
+      <div class="sub g">Why it matters</div><p>It gives you the leverage of automation without the risk. The brand voice, the spend and the client relationships stay under human control — always.</p>`},
+    'bm-attr':{k:'Built to measure',h:'One attribution spine',
+      body:`<p><strong>What it is:</strong> a single, honest basis for measuring every channel — paid, SEO, partners and social — from first touch to closed-won.</p>
+      <div class="sub">How I'd build it</div><ul><li>GHL pipeline stages fire GA4 events through GTM; offline conversions push back to Google/Meta for smarter bidding.</li><li>First-touch preserved through the CRM so nothing loses its source.</li></ul>
+      <div class="sub g">Why it matters</div><p>It's what makes kill/scale decisions <em>safe</em> — you compare agencies and channels on the same ruler, and you can prove what actually produced revenue rather than what merely produced clicks.</p>`},
+    'bm-brief':{k:'Built to measure',h:'Kill / scale / watch — weekly',
+      body:`<p><strong>What it is:</strong> a single weekly decision brief that turns the data into action.</p>
+      <div class="sub">How it works</div><ul><li>Re-weights budget, creative and nurture on evidence; an AI analyst drafts it, I make the calls.</li><li>I own a monthly qualified-lead + pipeline number at a definition we agree on — public dashboard, early warning with a recovery plan the moment I'm behind.</li></ul>
+      <div class="sub g">Why it matters</div><p>Activity metrics are diagnostics, never the topline. This keeps the whole system pointed at the one thing that matters — qualified pipeline that converts.</p>`},
+
+    /* ---- Page 5 proof ---- */
+    'pf-analytics':{k:'What I bring',h:'Performance analytics &amp; attribution',
+      body:`<p><strong>Hyve Mobile — AdOps (current role).</strong> My strongest revenue proof, and the exact muscle Seneca's funnel needs downstream.</p>
+      <div class="sub">What I did</div><ul><li>Media-spend efficiency across Google, Meta &amp; programmatic → <strong>ROI +25–40%</strong>.</li><li>GA4 + GTM tracking: pixels, URL params, clean attribution.</li><li>Customer segmentation + churn &amp; CLV models (Python, stats).</li><li>AI agents + BI dashboards (Python, Grafana, Looker); <strong>+30% conversion</strong> cross-functionally.</li></ul>
+      <div class="sub g">→ At Seneca</div><p>The attribution spine and the scoring layer (same segmentation/modelling muscle, pointed at lead quality).</p>`},
+    'pf-influencer':{k:'What I bring',h:'Influencer &amp; creator marketing — Zaio',
+      body:`<p><strong>Zaio — Campaign Coordinator.</strong> I ran end-to-end creator marketing: partnered with a roster of content creators, <strong>co-created content</strong> with them, boosted the top performers with paid, and measured <strong>ROAS per creator, per piece of content</strong> — then kept the winners and cut the rest. GA4 customer-journey analysis alongside.</p>
+      <div class="sub g">→ At Seneca</div><p>Directly the influencer / creator amplification play, and the per-creator ROAS rigor is the same measurement discipline the whole plan runs on. It also maps straight to running partner co-marketing.</p>`},
+    'pf-campaigns':{k:'What I bring',h:'Campaigns, CRO &amp; testing',
+      body:`<p><strong>Clarence AI &amp; AfroStory.</strong></p>
+      <div class="sub">What I did</div><ul><li>Ran high-profile accounts (<strong>MTN NG, Johnnie Walker</strong>) with on-time delivery.</li><li>QA protocols across creatives, landing pages &amp; tracking.</li><li>A/B-testing frameworks + audience segmentation to grow follower base.</li></ul>
+      <div class="sub g">→ At Seneca</div><p>The landing-page CRO and the creative-test loop — I've run this discipline against real brands.</p>`},
+    'pf-sallie':{k:'What I bring',h:'Sallie — a technical receipt, not a case study',
+      body:`<p><strong>Sallie</strong> is a working AI outreach system I designed, built and run solo. The architecture is the point:</p>
+      <div class="sub">The build (component by component)</div><ul><li><strong>Discovery</strong> → <strong>enrichment</strong>, confidence-scored by source</li><li><strong>Fit / readiness scoring</strong> → <strong>input-gating</strong> (invalid or low-confidence records never enter a sequence)</li><li><strong>Sequencing</strong> → <strong>A/B loop</strong> → an <strong>autonomous review cycle</strong> that drafts changes for a human to approve</li></ul>
+      <div class="sub g">Why it's here (and what it isn't)</div><p>I'm not selling it as a big-traffic case study — it runs at low volume, and I'll say that plainly. Its value is a <strong>technical receipt</strong>: every component above is exactly what Seneca's <em>enrich → score → gate → approve → measure</em> layer needs, and I've already shipped each one from scratch.</p>`},
+
+    /* ---- data model · per-channel tracking ---- */
+    'dm-paid':{k:'Data model · Sources',h:'Paid — interrupt &amp; intent',
+      body:`<p><strong>What it covers:</strong> every paid effort in the plan. Meta creates demand (interrupt); Google captures it (intent). I own the targeting logic and the measurement; media buying stays with the team/agencies.</p>
+      <div class="sub b">Channel → how it's tracked → metric</div>
+      <ul><li><b>Google Search Ads</b> — GCLID + UTM; offline conversions pushed back to Google → <span style="color:var(--emerald)">CPL · CAC · ROAS</span></li>
+      <li><b>Meta Ads</b> — Pixel + CAPI + FBCLID → <span style="color:var(--emerald)">CPL · CAC · ROAS</span></li>
+      <li><b>Partner-acquisition ads</b> (LinkedIn/Meta) — campaign UTM tagged "partner" → <span style="color:var(--emerald)">cost per partner sign-up</span></li>
+      <li><b>Paid retargeting</b> — audience membership + conversion → <span style="color:var(--emerald)">re-engagement conversion rate</span></li>
+      <li><b>Paid amplification</b> (boosted organic winners) — per-creative UTM → <span style="color:var(--emerald)">winning-creative CPL</span></li></ul>
+      <div class="say">Offline conversions flowing back to the platforms is what lets smart bidding optimise to <em>closed studies</em>, not just form-fills.</div>`},
+    'dm-organic':{k:'Data model · Sources',h:'Organic &amp; owned',
+      body:`<p><strong>What it covers:</strong> the channels Seneca owns outright — the cheapest, most durable pipeline.</p>
+      <div class="sub b">Channel → how it's tracked → metric</div>
+      <ul><li><b>Programmatic SEO</b> (50 states, 40+ property types) — landing-page URL + organic source; Search Console queries → <span style="color:var(--emerald)">submits per page (~$0 CPL)</span></li>
+      <li><b>GEO / AI search</b> (agency-run) — AI-engine referrals + branded-search lift + self-reported "how did you hear about us" → <span style="color:var(--emerald)">GEO-attributed &amp; assisted leads</span></li>
+      <li><b>Savings calculator</b> — captured inputs + source event → <span style="color:var(--emerald)">calculator → lead rate</span></li>
+      <li><b>Refer-a-friend</b> — unique referral code → <span style="color:var(--emerald)">referral volume + conversion</span></li></ul>
+      <div class="say">The calculator is doing double duty here: a lead magnet <em>and</em> the first piece of scoring data.</div>`},
+    'dm-partner':{k:'Data model · Sources',h:'Partner / CPA channel',
+      body:`<p><strong>What it covers:</strong> the highest-quality, lowest-CAC channel — tracked so every intro is measurable revenue.</p>
+      <div class="sub b">Channel → how it's tracked → metric</div>
+      <ul><li><b>Partner referrals</b> — unique partner link/UTM; the partner is stamped on first touch → <span style="color:var(--emerald)">referrals &amp; closed-won by partner</span></li>
+      <li><b>Co-marketing / webinars</b> — registration source per partner → <span style="color:var(--emerald)">webinar → pipeline</span></li></ul>
+      <div class="say">Because the partner is stamped at first touch and preserved to closed-won, you can finally prove which partners drive revenue — not just who made an intro.</div>`},
+    'dm-social':{k:'Data model · Sources',h:'Social &amp; content',
+      body:`<p><strong>What it covers:</strong> demand creation where investors actually spend time — captured, not left to evaporate.</p>
+      <div class="sub b">Channel → how it's tracked → metric</div>
+      <ul><li><b>Organic short-form</b> (IG / TikTok / LinkedIn / YouTube) — UTM'd bio &amp; links, view → click → <span style="color:var(--emerald)">content → lead, engagement rate</span></li>
+      <li><b>Social engagement / DM campaigns</b> — lead source "social engagement" + conversation log → <span style="color:var(--emerald)">conversations → qualified</span></li>
+      <li><b>Authority</b> (podcasts / webinars) — vanity URL / promo code / UTM → <span style="color:var(--emerald)">attributed leads per appearance</span></li></ul>
+      <div class="say">Retargeting audiences catch everyone who engaged, so social attention becomes a captured, measurable lead.</div>`},
+    'dm-email':{k:'Data model · Sources',h:'Email &amp; outbound',
+      body:`<p><strong>What it covers:</strong> working the leads you already have, plus enriched proactive outreach.</p>
+      <div class="sub b">Channel → how it's tracked → metric</div>
+      <ul><li><b>Lifecycle / nurture email</b> — GHL opens &amp; clicks on UTM'd links → <span style="color:var(--emerald)">sequence → meeting rate</span></li>
+      <li><b>Enriched outbound</b> — sequence + reply tracking → <span style="color:var(--emerald)">reply rate, outbound → qualified</span></li></ul>
+      <div class="say">All of it drafted by AI and approved by a human before send — the same gating discipline I built into Sallie.</div>`},
+    'dm-record':{k:'Data model · System of record',h:'The GHL contact — one source of truth',
+      body:`<p><strong>What it is:</strong> the moment every channel converges. No matter where a lead came from, it becomes <strong>one contact in GoHighLevel</strong> with its origin stamped on.</p>
+      <div class="sub">Preserved from first touch → closed-won</div>
+      <p><span class="fld">source / utm</span><span class="fld">gclid · fbclid</span><span class="fld">partner_id</span><span class="fld">campaign</span><span class="fld">first_touch_ts</span></p>
+      <div class="sub g">Why it matters</div><p>Preserving first-touch through the CRM is the one thing that makes cross-channel attribution possible. Break it, and every channel argues from its own numbers; keep it, and they all reconcile to the same closed-won revenue.</p>`},
+    'dm-metrics':{k:'Data model · Measure',h:'What every channel rolls up to',
+      body:`<p><strong>The same metric set for everyone</strong>, so channels compare honestly:</p>
+      <ul><li><b>Per channel &amp; segment</b> — CPL, <b>CPQL</b> (cost per <em>qualified</em> lead — the honest version), CAC, ROAS</li>
+      <li><b>Pipeline</b> — qualified leads &amp; estimated study value entering sales</li>
+      <li><b>The topline</b> — first-touch → closed-won revenue, by source</li>
+      <li><b>Cadence</b> — weekly kill / scale / watch brief; rolling monthly CAC</li></ul>
+      <div class="say">The trap is optimising raw CPL. A $5–15k study delivers a ~$171k first-year <em>deduction</em> (roughly $50–65k in cash at a top marginal rate), so the number that matters is cost per <em>qualified</em> lead — and whether it closes.</div>`},
+
+    /* ---- capture · protect &amp; compound ---- */
+    'cc-seo':{k:'Capture · protect &amp; compound',h:'Programmatic SEO — the moat',
+      body:`<p><strong>What it is:</strong> Seneca's crown jewel — programmatic pages ranking for "cost segregation [state / property type]" across 50 states and 40+ property types. Free, high-intent, and compounding.</p>
+      <div class="sub">How I'd protect &amp; compound it</div><ul><li>Don't touch the moat. Mine Search Console + GHL for which pages actually drive <strong>submits</strong> (not just sessions).</li><li>Expand the winning page templates into new long-tail terms; keep every page routed into the instrumented funnel.</li></ul>
+      <div class="sub g">Why it matters</div><p>This is the base the whole plan sits on. Protecting and compounding it is worth more than chasing any shiny new channel.</p>`},
+    'cc-google':{k:'Capture · protect &amp; compound',h:'Google Search ads — capture intent',
+      body:`<p><strong>What it is:</strong> paying to appear on the highest-intent queries you don't already rank #1 for. Seneca is new to Google, keen, with GTM already in place.</p>
+      <div class="sub">How I'd build it</div><ul><li>Intent tiers (ready-to-buy vs researching), landing-page match per tier, and offline conversions pushed back to Google so smart bidding optimises to closed studies.</li><li>I own the structure &amp; measurement.</li></ul>
+      <div class="sub g">Why it matters</div><p>Intent is already there — the most efficient paid there is, and it complements the SEO moat rather than competing with it.</p>`},
+    'cc-calc':{k:'Capture · protect &amp; compound',h:'Savings calculator — magnet + qualifier',
+      body:`<p><strong>What it is:</strong> a lead magnet that doubles as a soft qualifier — the number pulls people in, and the inputs tell us who they are.</p>
+      <div class="sub">How I'd leverage it</div><ul><li>Use the inputs (property type, rough basis) as the <strong>first scoring signal</strong> — a lead arrives partly qualified.</li><li>Calculator-abandon recovery emails bring back the ones who didn't finish.</li></ul>
+      <div class="sub g">Why it matters</div><p>It's under-leveraged today — the softest, least intrusive way to capture qualification data, no heavy form required.</p>`},
+    'cc-compare':{k:'Capture · protect &amp; compound',h:'Comparison content',
+      body:`<p><strong>What it is:</strong> content that captures shoppers already comparing options — "[competitor] review", "7 best cost seg companies", "$5k vs $15k study".</p>
+      <div class="sub">How I'd handle it</div><ul><li>Keep producing it (Seneca already does this well), and make sure every page routes into the same instrumented funnel and is measured to submits.</li></ul>
+      <div class="sub g">Why it matters</div><p>These visitors are high-intent and near a decision — intercepting them is some of the cheapest qualified traffic available.</p>`},
+    'cc-geo':{k:'Capture · protect &amp; compound',h:'GEO — Generative Engine Optimization',
+      body:`<p><strong>What it is:</strong> the AI-search counterpart to SEO — making sure Seneca is the source AI answer engines (ChatGPT, Perplexity, Google AI Overviews, Gemini) <em>cite</em> when someone asks "what is cost segregation?" or "who does engineered cost seg studies?" Increasingly that's where high-intent research begins.</p>
+      <div class="sub">Where Seneca is</div><ul><li><strong>Already running it through an agency</strong> — genuinely ahead of most firms this size.</li></ul>
+      <div class="sub g">My role — support &amp; measure, not take over</div><ul><li><strong>Measure it on the attribution spine:</strong> track GEO-sourced leads (AI-engine referrals, branded-search lift, self-reported "how did you hear about us") to closed-won, so the agency is accountable on the same ruler as paid and SEO.</li><li><strong>Feed it</strong> with the content engine: structured, citable assets — FAQs, data tables, case studies — that LLMs love to quote. The programmatic-SEO moat is already perfect raw material.</li></ul>
+      <div class="say">"You've got the GEO agency running — the usual gap is proving what it produces. I'd put its leads on the same first-touch → closed-won spine as everything else, and feed it citable content so it compounds."</div>`},
+
+    /* ---- amplify · borrowed trust ---- */
+    'am-refer':{k:'Amplify · borrowed trust',h:'Refer-a-friend',
+      body:`<p><strong>What it is:</strong> turning happy clients into a repeatable lead source — the cheapest, highest-trust leads there are.</p>
+      <div class="sub">How I'd build it</div><ul><li>Systematise the ask at the <strong>moment of delight</strong> — study delivered, savings realised — instead of hoping it happens.</li><li>Track with unique referral codes on the same attribution spine, so referral volume &amp; conversion are visible.</li><li>Drive traffic to the <strong>custom refer-a-friend landing page</strong> the team's already built — with <strong>social media campaigns, paid and organic</strong>. Test angles, keep what converts, scale the winners.</li></ul>
+      <div class="sub g">Why it matters</div><p>Satisfied cost-seg clients refer readily — the results are concrete and personal. But if it isn't a tracked program, you can't see it or compound it. Systematising the ask turns a happy accident into a measurable, repeatable channel.</p>`},
+    'am-creator':{k:'Amplify · borrowed trust',h:'Influencer / creator marketing',
+      body:`<p><strong>What it is:</strong> borrowing the trust and audience of creators in the real-estate, STR and finance niches — pairing naturally with refer-a-friend, since both convert <em>borrowed trust</em> into pre-warmed leads.</p>
+      <div class="sub">How I'd run it (my proven playbook)</div><ul><li>Partner with a roster of creators; <strong>co-create</strong> content with them rather than dictating it.</li><li>Boost the top performers with paid; measure <strong>ROAS per creator, per piece of content</strong>.</li><li>Keep the winners, drop the rest — test-first, low-risk.</li></ul>
+      <div class="sub g">Why it matters</div><p>This is exactly how I ran creator marketing at Zaio. The per-creator ROAS discipline keeps it accountable, and it feeds the same instrumented funnel as everything else.</p>`}
+  };
+
+  const ov=document.getElementById('ov'), mbox=document.getElementById('mbox');
+  function openM(id){const m=M[id];if(!m)return;
+    mbox.innerHTML=`<button class="x" onclick="closeM()">✕</button><div class="kicker">${m.k}</div><h3>${m.h}</h3>${m.body}`;
+    ov.classList.add('open');}
+  function closeM(){ov.classList.remove('open')}
+  document.querySelectorAll('[data-modal]').forEach(el=>el.addEventListener('click',()=>openM(el.dataset.modal)));
+  ov.addEventListener('click',e=>{if(e.target===ov)closeM()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+</script>
+</body>
+</html>
